@@ -12,11 +12,16 @@ import SignInPage from '../SignIn';
 // import AccountPage from '../Account';
 // import AdminPage from '../Admin';
 import * as ROUTES from '../../constants/routes';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+
 const App = () => (
     <Router>
         <div>
             <Navigation />
-            <hr />
+
             {/* <Route exact path={ROUTES.LANDING} component={LandingPage} /> */}
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />
@@ -27,4 +32,14 @@ const App = () => (
         </div>
     </Router>
 );
-export default App;
+
+export default function FixedContainer() {
+    return (
+        <React.Fragment>
+            <CssBaseline />
+            <Container fixed>
+                <Typography component={App} style={{ backgroundColor: '#cfe8fc', height: '100vh' }} />
+            </Container>
+        </React.Fragment>
+    );
+}

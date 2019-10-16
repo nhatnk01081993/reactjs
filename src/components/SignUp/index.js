@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 
 const SignUpPage = () => (
   <div>
@@ -10,6 +13,29 @@ const SignUpPage = () => (
     <SignUpForm />
   </div>
 );
+const defaultProps = {
+  bgcolor: 'background.paper',
+  m: 1,
+  border: 1,
+  style: { width: '5rem', height: '5rem' },
+};
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+}));
 
 const INITIAL_STATE = {
   username: '',
@@ -26,7 +52,7 @@ class SignUpFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = event => {
+  onSubmit = (event) => {
     const { username, email, passwordOne } = this.state;
 
     this.props.firebase
@@ -74,7 +100,28 @@ class SignUpFormBase extends Component {
       username === '';
 
     return (
+
       <form onSubmit={this.onSubmit}>
+        <Box display="flex" justifyContent="center" m={1} p={1} bgcolor="background.paper">
+          <Box p={1} css={{ width: '30%' }}>
+            <TextField
+              required
+              id="standard-required"
+              label="Email"
+              className={useStyles.textField}
+              margin="dense"
+              onChange={this.onChange}
+              value={this.state.email}
+              name="email"
+              type="email"
+              fullWidth="true"
+            />
+          </Box>
+        </Box>
+        <div >
+
+        </div>
+
         <input
           name="username"
           value={username}
@@ -106,8 +153,10 @@ class SignUpFormBase extends Component {
         <button disabled={isInvalid} type="submit">
           Sign Up
         </button>
+        <Box bgcolor="secondary.main">
+          {error && <p>{error.message}</p>}
+        </Box>
 
-        {error && <p>{error.message}</p>}
       </form>
     );
   }
