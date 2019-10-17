@@ -1,43 +1,64 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
+
+import { AuthUserContext } from '../Session';
+
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import FolderIcon from '@material-ui/icons/Folder';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     root: {
-        flexGrow: 1,
+        width: 500,
     },
-    menuButton: {
-        marginRight: theme.spacing(1),
-    },
-    title: {
-        flexGrow: 1,
-    },
-}));
-const Navigation = () => {
+});
+
+const Navigation = () => (
+    <div>
+        <AuthUserContext.Consumer>
+            {authUser =>
+                authUser ? <NavigationAuth /> : <NavigationNonAuth />
+            }
+        </AuthUserContext.Consumer>
+    </div>
+);
+
+function NavigationAuth() {
     const classes = useStyles();
+    const [value, setValue] = React.useState('recents');
 
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
     return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        News
-          </Typography>
-
-                    <Button component={Link} to={ROUTES.SIGN_UP} color="inherit">Login</Button>
-
-                </Toolbar>
-            </AppBar>
-        </div>
+        <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+            <BottomNavigationAction Component={Link} to={ROUTES.LANDING} label="Recents" value="recents" icon={<RestoreIcon />} />
+            <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
+            <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
+            <BottomNavigationAction Component={SignOutButton} />
+        </BottomNavigation>
     );
 }
-{/* <Link to={ROUTES.SIGN_UP} /> */ }
+function NavigationNonAuth() {
+    const classes = useStyles();
+    const [value, setValue] = React.useState('recents');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    return (
+        <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+            <BottomNavigationAction Component={Link} to={ROUTES.LANDING} label="Recents" value="recents" icon={<RestoreIcon />} />
+            <BottomNavigationAction Component={Link} to={ROUTES.SIGN_IN} label="SignIn/SignUp" icon={<LocationOnIcon />} />
+        </BottomNavigation>
+    );
+}
+
 export default Navigation;

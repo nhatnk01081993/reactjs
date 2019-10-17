@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-
+import { FirebaseContext } from '../Firebase';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
 
 const SignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
-    <SignUpForm />
+    <FirebaseContext.Consumer>
+      {firebase => <SignUpForm firebase={firebase} />}
+    </FirebaseContext.Consumer>
   </div>
 );
+
 const defaultProps = {
   bgcolor: 'background.paper',
   m: 1,
@@ -34,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
   menu: {
     width: 200,
-  },
+  }
 }));
 
 const INITIAL_STATE = {
@@ -100,64 +105,85 @@ class SignUpFormBase extends Component {
       username === '';
 
     return (
-
-      <form onSubmit={this.onSubmit}>
-        <Box display="flex" justifyContent="center" m={1} p={1} bgcolor="background.paper">
-          <Box p={1} css={{ width: '30%' }}>
-            <TextField
-              required
-              id="standard-required"
-              label="Email"
-              className={useStyles.textField}
-              margin="dense"
-              onChange={this.onChange}
-              value={this.state.email}
-              name="email"
-              type="email"
-              fullWidth="true"
-            />
-          </Box>
-        </Box>
-        <div >
-
-        </div>
-
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
-        <Box bgcolor="secondary.main">
-          {error && <p>{error.message}</p>}
-        </Box>
-
-      </form>
+      <div style={{ display: "flex", flexDirection: "row", marginTop: 40 }}>
+        <Grid item xs={4}>
+          <div>
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <form onSubmit={this.onSubmit}>
+            <Box boxShadow={3} border={1} alignItems="center" borderColor="primary.main" display="flex" flexDirection="column" justifyContent="center" m={1} p={1} bgcolor="background.paper">
+              <Avatar alt="Remy Sharp" src="https://genknews.genkcdn.vn/2016/photo-1-1482990145725.jpg" style={{ width: 100, height: 100 }} />
+              <br />
+              <Box p={1} width="75%" >
+                <TextField
+                  id="standard-required"
+                  label="Full Name"
+                  className={useStyles.textField}
+                  margin="dense"
+                  onChange={this.onChange}
+                  value={username}
+                  name="username"
+                  fullWidth="true"
+                />
+              </Box>
+              <Box p={1} width="75%" >
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Email"
+                  className={useStyles.textField}
+                  margin="dense"
+                  onChange={this.onChange}
+                  value={email}
+                  name="email"
+                  type="email"
+                  fullWidth="true"
+                />
+              </Box>
+              <Box p={1} width="75%" >
+                <TextField
+                  required
+                  id="standard-required"
+                  label="PassWord"
+                  className={useStyles.textField}
+                  margin="dense"
+                  onChange={this.onChange}
+                  value={passwordOne}
+                  name="passwordOne"
+                  type="password"
+                  fullWidth="true"
+                />
+              </Box>
+              <Box p={1} width="75%" >
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Confirm PassWord"
+                  className={useStyles.textField}
+                  margin="dense"
+                  onChange={this.onChange}
+                  value={passwordTwo}
+                  name="passwordTwo"
+                  type="password"
+                  fullWidth="true"
+                />
+              </Box>
+              <Box p={1}>
+                <Button disabled={isInvalid} type="submit" variant="outlined" color="primary">
+                  Sign Up
+                </Button>
+              </Box>
+              <Box bgcolor="secondary.main">
+                {error && <p>{error.message}</p>}
+              </Box>
+            </Box>
+          </form></Grid>
+        <Grid item xs={4}>
+          <div >
+          </div>
+        </Grid>
+      </div>
     );
   }
 }
@@ -167,6 +193,7 @@ const SignUpLink = () => (
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 );
+
 const SignUpForm = withRouter(withFirebase(SignUpFormBase));
 export default SignUpPage;
 export { SignUpForm, SignUpLink };
