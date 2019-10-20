@@ -39,10 +39,10 @@ function NavigationAuth() {
     };
     return (
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-            <BottomNavigationAction Component={Link} to={ROUTES.LANDING} label="Recents" value="recents" icon={<RestoreIcon />} />
+            <BottomNavigationAction component={Link} to={ROUTES.LANDING} label="Recents" value="recents" icon={<RestoreIcon />} />
             <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
             <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
-            <BottomNavigationAction Component={SignOutButton} />
+            <BottomNavigationAction component={SignOutButton} />
         </BottomNavigation>
     );
 }
@@ -55,8 +55,8 @@ function NavigationNonAuth() {
     };
     return (
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-            <BottomNavigationAction Component={Link} to={ROUTES.LANDING} label="Recents" value="recents" icon={<RestoreIcon />} />
-            <BottomNavigationAction Component={Link} to={ROUTES.SIGN_IN} label="SignIn/SignUp" icon={<LocationOnIcon />} />
+            <BottomNavigationAction component={Link} to={ROUTES.LANDING} label="Recents" value="recents" icon={<RestoreIcon />} />
+            <BottomNavigationAction component={Link} to={ROUTES.SIGN_IN} label="SignIn/SignUp" icon={<LocationOnIcon />} />
         </BottomNavigation>
     );
 }
