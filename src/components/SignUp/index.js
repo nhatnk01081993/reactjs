@@ -105,14 +105,14 @@ class SignUpFormBase extends Component {
       username === '';
 
     return (
-      <div style={{ display: "flex", flexDirection: "row", marginTop: 40 }}>
+      <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }}>
         <Grid item xs={4}>
           <div>
           </div>
         </Grid>
         <Grid item xs={4}>
           <form onSubmit={this.onSubmit}>
-            <Box boxShadow={3} border={1} alignItems="center" borderColor="primary.main" display="flex" flexDirection="column" justifyContent="center" m={1} p={1} bgcolor="background.paper">
+            <Box boxShadow={3} alignItems="center" display="flex" flexDirection="column" justifyContent="center" m={1} p={1} bgcolor="background.paper">
               <Avatar alt="Remy Sharp" src="https://genknews.genkcdn.vn/2016/photo-1-1482990145725.jpg" style={{ width: 100, height: 100 }} />
               <br />
               <Box p={1} width="75%" >

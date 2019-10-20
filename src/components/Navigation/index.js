@@ -9,14 +9,16 @@ import { AuthUserContext } from '../Session';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import FolderIcon from '@material-ui/icons/Folder';
+import ContactsIcon from '@material-ui/icons/Contacts';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+
 
 const useStyles = makeStyles({
     root: {
-        width: 500,
+        width: '100',
     },
 });
 
@@ -40,6 +42,7 @@ function NavigationAuth() {
     return (
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
             <BottomNavigationAction component={Link} to={ROUTES.LANDING} label="Recents" value="recents" icon={<RestoreIcon />} />
+            <BottomNavigationAction component={Link} to={ROUTES.LANDING} label="About Us" value="About Us" icon={<ContactsIcon />} />
             <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
             <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
             <BottomNavigationAction component={SignOutButton} />
@@ -56,7 +59,8 @@ function NavigationNonAuth() {
     return (
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
             <BottomNavigationAction component={Link} to={ROUTES.LANDING} label="Recents" value="recents" icon={<RestoreIcon />} />
-            <BottomNavigationAction component={Link} to={ROUTES.SIGN_IN} label="SignIn/SignUp" icon={<LocationOnIcon />} />
+            <BottomNavigationAction component={Link} to={ROUTES.LANDING} label="About Us" value="About Us" icon={<ContactsIcon />} />
+            <BottomNavigationAction component={Link} to={ROUTES.SIGN_IN} label="SignIn/SignUp" icon={<VpnKeyIcon />} />
         </BottomNavigation>
     );
 }
